@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo,deleteMe }) => {
   const [currTime, setCurrTime] = useState(() => {
     return todo.time;
   });
-
-  setInterval(() => {
+  
+  useEffect(() => {
     setCurrTime(Math.round(Date.now() / 1000));
-  }, 1000);
-
+  },[]);
   return (
     <>
       <div className="todo">
@@ -18,12 +17,8 @@ const Todo = ({ todo }) => {
           <p>{todo.data}</p>
           <p className="created-time">{String(currTime - todo.time)}</p>
         </div>
-        <div className="edit-btn">
           <EditIcon className="edit-icon" />
-        </div>
-        <div className="delete-btn">
-          <DeleteIcon className="delete-icon" />
-        </div>
+          <DeleteIcon className="delete-icon" onClick={deleteMe}/>
       </div>
     </>
   );
