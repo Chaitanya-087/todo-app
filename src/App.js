@@ -23,7 +23,7 @@ export default function App() {
 
   const addTodo = (e) => {
     e.preventDefault();
-    dispatch({type:'ADD_TODO',payload:newTodo(value)})
+    value && dispatch({type:'ADD_TODO',payload:newTodo(value)})
     setValue('')
   }
 
