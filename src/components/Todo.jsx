@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useEffect, useState} from "react"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { timeElements } from "../helpers/timeElements"
 
+const Todo = ({ todo,dispatch }) => {
+  const [editTodo,setEditedTodo] = useState(todo.data)
+  const [period,setPeriod ] = useState(`${Math.floor((Date.now() - todo.time) / timeElements.SECOND)} secs`)
 
-const timeElements = {
-  SECOND:1000,
-  MINUTE:60  ,
-  HOUR  :60 * 60,
-  DAY   :24 * 60 * 60,
-  WEEK  :7  * 24 * 60 * 60,
-  MONTH :30 * 24 * 60 * 60,
-  YEAR  :12 * 30 * 24 * 60 * 60,
-}
-
-const Todo = ({ todo,deleteMe }) => {
-  const [period,setPeriod ] = useState(`${Math.round((Date.now() - todo.time) / timeElements.SECOND)} secs ago`)
-  useEffect(() => {
-    const timeBetween = Math.round((Date.now() - todo.time) / timeElements.SECOND)
-    const updatePeriod = () => {
-      if (timeBetween > timeElements.MINUTE) setPeriod(`${Math.round(timeBetween / timeElements.MINUTE)} mins ago`)
-      if (timeBetween > timeElements.HOUR) setPeriod(`${Math.round(timeBetween / timeElements.HOUR)} hours ago`)
-      if (timeBetween > timeElements.DAY) setPeriod(`${Math.round(timeBetween / timeElements.DAY)} days ago`)
-      if (timeBetween > timeElements.WEEK) setPeriod(`${Math.round(timeBetween / timeElements.WEEK)} weeks ago`)   
+  useEffect(()=>{
+    const updateTime = () => {
+      const timeDiff = Math.floor(Math.floor((Date.now() - todo.time) / timeElements.SECOND))
+      timeDiff >= timeElements.MINUTE && timeDiff < timeElements.HOUR && setPeriod(`${Math.floor(timeDiff / timeElements.MINUTE)} mins`)
+      timeDiff >= timeElements.HOUR && timeDiff < timeElements.DAY  && setPeriod(`${Math.floor(timeDiff / timeElements.HOUR)} hrs`)
     }
-    updatePeriod()
+    updateTime()
   },[])
+
   return (
     <>
       <div className="todo">
         <div className="todo-details">
           <p>{todo.data}</p>
-          <p className="created-time">{period}</p>
+          <p className="created-time">{period} ago</p>
         </div>
-          <EditIcon className="edit-icon" />
-          <DeleteIcon className="delete-icon" onClick={deleteMe}/>
+          <label htmlFor="edit">
+            <EditIcon className="edit-icon" onClick={() => dispatch({type:'EDIT_ENABLE',payload:todo.id})}/>
+          </label>
+          <DeleteIcon className="delete-icon" onClick={() => dispatch({type:'DELETE_TODO',payload:todo.id})}/>
       </div>
+
+      {todo.edit && <div className="edit-todo">
+            <input style={{color:'white',fontSize:'16px'}} id="edit" value={editTodo} onChange={(e)=>setEditedTodo(e.target.value)}/>
+            <button className="btn-update" onClick={() => dispatch({type:'UPDATE_TODO',payload:{id:todo.id,data:editTodo}})}>Update</button>
+        </div>}
     </>
-  );
-};
+  )
+}
 
 export default Todo;

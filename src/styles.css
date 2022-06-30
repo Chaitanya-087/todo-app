@@ -15,6 +15,7 @@ input {
 
 button{
   all: unset;
+  cursor: pointer;
 }
 
 .App {
@@ -22,15 +23,12 @@ button{
   min-height: 100vh;
   background-color: #141d2e;
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 .container{
   width: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
   gap: 2rem;
 }
 
@@ -41,6 +39,7 @@ button{
   padding: 6px;
   border-radius: 5px;
   background-color: #1f2b49;
+  overflow: hidden;
   box-shadow: rgba(0,0, 0, 0.2) 0px 2px 8px 0px;
 }
 
@@ -57,11 +56,13 @@ button{
 }
 
 .submit {
-  background: #1da1f2;
+  background: rgb(29, 161, 242);
   padding: 8px 16px;
   color: white;
   border-radius: 5px;
   font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(29, 161, 242 , 0.3);
 }
 .todos{
   display: flex;
@@ -121,8 +122,21 @@ button{
   justify-content: center;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 10px rgba(29, 161, 242 , 0.3);
 }
-
-.btn-clearall:focus{
-  box-shadow:  0 0 0 6px #1da0f237;
+.edit-todo{
+  width: 100%;
+  display: flex;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid silver;
+}
+.btn-update{
+  background: #1da1f2;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 5px;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(29, 161, 242 , 0.3);
+  margin-left: auto;
 }
