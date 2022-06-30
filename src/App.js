@@ -2,8 +2,6 @@ import "./styles.css";
 import { useState, useRef, useEffect } from "react";
 import Todo from "./components/Todo";
 
-
-
 const getTodos = () => {
     const localTodos = localStorage.getItem('local_todos')
     if (localTodos) {
@@ -22,7 +20,7 @@ export default function App() {
     e.preventDefault();
     const newTodo = {
       id: Math.random().toString(36).substring(2, 9),
-      time: Number(Math.round(Date.now() / 1000)),
+      time: Number(Date.now()),
       data: todoRef.current.value
     };
 
