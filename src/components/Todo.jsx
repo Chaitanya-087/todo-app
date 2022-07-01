@@ -34,18 +34,16 @@ const Todo = ({ todo, dispatch }) => {
           <p>{todo.data}</p>
           <p className="created-time">{period} ago</p>
         </div>
-        <label htmlFor="edit">
-          <EditIcon className="edit-icon" onClick={() => dispatch({ type: 'EDIT_ENABLE', payload: {id:todo.id }})} />
-        </label>
+        <EditIcon className="edit-icon" onClick={() => dispatch({ type: 'EDIT_ENABLE', payload: {id:todo.id }})} />
         <DeleteIcon className="delete-icon" onClick={() => dispatch({ type: 'DELETE_TODO', payload:{ id:todo.id }})} />
       </motion.div>
       {
-        todo.edit && <motion.div layout animate={{opacity:1}} initial={{opacity:0}} exit={{opacity:1}}>
+        todo.edit && <div>
           <form onSubmit={editFormHandle} className="edit-todo">
-            <input style={{ color: 'white', fontSize: '16px' }} id="edit" value={editTodo} onChange={(e) => setEditedTodo(e.target.value)} />
+            <input style={{ color: 'white', fontSize: '16px' }} value={editTodo} onChange={(e) => setEditedTodo(e.target.value)} />
             <input type='submit' value='Update' className="btn-update" />
           </form>
-        </motion.div>
+        </div>
       }
     </>
   )
