@@ -40,7 +40,7 @@ const Todo = ({ todo, dispatch }) => {
         <DeleteIcon className="delete-icon" onClick={() => dispatch({ type: 'DELETE_TODO', payload:{ id:todo.id }})} />
       </motion.div>
       {
-        todo.edit && <motion.div layout>
+        todo.edit && <motion.div layout animate={{opacity:1}} initial={{opacity:0}} exit={{opacity:1}}>
           <form onSubmit={editFormHandle} className="edit-todo">
             <input style={{ color: 'white', fontSize: '16px' }} id="edit" value={editTodo} onChange={(e) => setEditedTodo(e.target.value)} />
             <input type='submit' value='Update' className="btn-update" />
