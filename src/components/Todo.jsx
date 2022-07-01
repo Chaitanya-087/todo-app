@@ -12,7 +12,7 @@ const Todo = ({ todo, dispatch }) => {
       const timeDiff = Math.floor((Date.now() - todo.time) / 1000)
       timeDiff < 60 && setPeriod(`${timeDiff} secs`)
       timeDiff >= 60 && timeDiff < 3600 && setPeriod(`${Math.floor(timeDiff / 60)} mins ${Math.floor((timeDiff / 60 - Math.floor(timeDiff / 60)) * 60)} secs`)
-      timeDiff >= 3600 && timeDiff < 86400 && setPeriod(`${Math.floor(timeDiff / 3600)} hrs ${Math.floor((timeDiff / 3600 - Math.floor(timeDiff / 3600)) * 3600 / 60)} mins`)
+      timeDiff >= 3600 && setPeriod(`${Math.floor(timeDiff / 3600)} hrs ${Math.floor((timeDiff / 3600 - Math.floor(timeDiff / 3600)) * 3600 / 60)} mins`)
     }
     updateTime()
   }, [todo.edit])
@@ -38,12 +38,11 @@ const Todo = ({ todo, dispatch }) => {
         <DeleteIcon className="delete-icon" onClick={() => dispatch({ type: 'DELETE_TODO', payload:{ id:todo.id }})} />
       </motion.div>
       {
-        todo.edit && <div>
-          <form onSubmit={editFormHandle} className="edit-todo">
+        todo.edit && 
+          <motion.form onSubmit={editFormHandle} className="edit-todo">
             <input style={{ color: 'white', fontSize: '16px' }} value={editTodo} onChange={(e) => setEditedTodo(e.target.value)} />
             <input type='submit' value='Update' className="btn-update" />
-          </form>
-        </div>
+          </motion.form>
       }
     </>
   )
