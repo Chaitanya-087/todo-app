@@ -1,8 +1,8 @@
 import "./styles.css";
-import { useState, useRef, useEffect, useReducer } from "react"
+import { useState, useEffect, useReducer } from "react"
 import Todo from "./components/Todo"
 import TodoReducer from "./helpers/TodoReducer";
-
+import { motion,AnimatePresence } from "framer-motion";
 const getTodos = () => {
     const localTodos = localStorage.getItem('local_todos')
     if (localTodos) {
@@ -23,7 +23,8 @@ export default function App() {
 
   const addTodo = (e) => {
     e.preventDefault();
-    value && dispatch({type:'ADD_TODO',payload:newTodo(value)})
+    value && dispatch({type:'ADD_TODO',payload:{newTodo : newTodo(value)}})
+    dispatch({type:'SORT_TODOS'})
     setValue('')
   }
 
@@ -38,12 +39,13 @@ export default function App() {
           <input className="todo-input" value={value} placeholder="Todo..." onChange={(e)=>setValue(e.target.value)} />
           <input className="submit" type="submit" value="Add" />
         </form>
-        <div className="todos">
-          {todos.map((todo) => (
-            <Todo key={todo.id} todo = {todo}  dispatch={dispatch}/>
-          ))}
-
-        </div>
+        <motion.div layout className="todos">
+          <AnimatePresence>
+            {todos.map((todo) => {
+             return  <Todo key={todo.id} todo = {todo}  dispatch={dispatch}/>
+            })}
+          </AnimatePresence>
+        </motion.div>
         <div className="btn-wrapper">
             <button className="btn-clearall" onClick={() => dispatch({type:'RESET'})}>
               Clear All

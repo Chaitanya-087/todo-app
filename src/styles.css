@@ -94,8 +94,8 @@ button{
   font-weight: 400;
   position: absolute;
   bottom: 0;
-  left: 60%;
-  opacity: 50%;
+  left: 50%;
+  opacity: 60%;
 }
 .edit-icon {
   color: green;
