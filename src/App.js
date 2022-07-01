@@ -40,7 +40,7 @@ export default function App() {
           <input className="submit" type="submit" value="Add" />
         </form>
         <motion.div layout className="todos">
-          <AnimatePresence>
+          <AnimatePresence exitBeforeEnter>
             {todos.map((todo) => {
              return  <Todo key={todo.id} todo = {todo}  dispatch={dispatch}/>
             })}
