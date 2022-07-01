@@ -2,7 +2,6 @@ import "./styles.css";
 import { useState, useEffect, useReducer } from "react"
 import Todo from "./components/Todo"
 import TodoReducer from "./helpers/TodoReducer";
-import { motion,AnimatePresence } from "framer-motion";
 const getTodos = () => {
     const localTodos = localStorage.getItem('local_todos')
     if (localTodos) {
@@ -39,13 +38,11 @@ export default function App() {
           <input className="todo-input" value={value} placeholder="Todo..." onChange={(e)=>setValue(e.target.value)} />
           <input className="submit" type="submit" value="Add" />
         </form>
-        <motion.div layout className="todos">
-          <AnimatePresence>
+        <div className="todos">
             {todos.map((todo) => {
              return  <Todo key={todo.id} todo = {todo}  dispatch={dispatch}/>
             })}
-          </AnimatePresence>
-        </motion.div>
+        </div>
         <div className="btn-wrapper">
             <button className="btn-clearall" onClick={() => dispatch({type:'RESET'})}>
               Clear All

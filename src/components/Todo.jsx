@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
-import {motion} from 'framer-motion'
 
 const Todo = ({ todo, dispatch }) => {
   const [editTodo, setEditedTodo] = useState(todo.data)
@@ -24,25 +23,23 @@ const Todo = ({ todo, dispatch }) => {
   }
   return (
     <>
-      <motion.div 
-        layout
-        animate={{opacity:1}}
-        initial={{opacity:0}}
-        exit={{opacity:0}} 
-        className="todo">
+      <div className="todo">
         <div className="todo-details">
           <p>{todo.data}</p>
           <p className="created-time">{period} ago</p>
         </div>
-        <EditIcon className="edit-icon" onClick={() => dispatch({ type: 'EDIT_ENABLE', payload: {id:todo.id }})} />
+        <label htmlFor="edit" name='edit'>
+          <EditIcon className="edit-icon" onClick={() => dispatch({ type: 'EDIT_ENABLE', payload: {id:todo.id }})} />
+        </label>
         <DeleteIcon className="delete-icon" onClick={() => dispatch({ type: 'DELETE_TODO', payload:{ id:todo.id }})} />
-      </motion.div>
+      </div>
+
       {
         todo.edit && 
-          <motion.form onSubmit={editFormHandle} className="edit-todo">
-            <input style={{ color: 'white', fontSize: '16px' }} value={editTodo} onChange={(e) => setEditedTodo(e.target.value)} />
+          <form onSubmit={editFormHandle} className="edit-todo">
+            <input style={{ color: 'white', fontSize: '16px' }} value={editTodo} id="edit" onChange={(e) => setEditedTodo(e.target.value)} />
             <input type='submit' value='Update' className="btn-update" />
-          </motion.form>
+          </form>
       }
     </>
   )
